@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Andorid RecyclerView.Adapter getAdapterPosition() 与 getLayoutPosition() 的区别 - Even - A super concise theme for Hugo</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="shindo-l" /><meta name="description" content="优先选择getLayoutPosition() getAdapterPosition() 是提供数据在刷新的时候提供一个-1的返回值，来告知视图其实正在重新绘制。这个时候点击位置与你" /><meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.93.0 with theme even" />
+
+
+<link rel="canonical" href="http://localhost:1313/post/recyclerview.adapter-getadapterposition-%E4%B8%8E-getlayoutposition-%E7%9A%84%E5%8C%BA%E5%88%AB/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Andorid RecyclerView.Adapter getAdapterPosition() 与 getLayoutPosition() 的区别" />
+<meta property="og:description" content="优先选择getLayoutPosition() getAdapterPosition() 是提供数据在刷新的时候提供一个-1的返回值，来告知视图其实正在重新绘制。这个时候点击位置与你" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://localhost:1313/post/recyclerview.adapter-getadapterposition-%E4%B8%8E-getlayoutposition-%E7%9A%84%E5%8C%BA%E5%88%AB/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2022-03-14T05:12:39+08:00" />
+<meta property="article:modified_time" content="2022-03-14T05:12:39+08:00" />
+
+<meta itemprop="name" content="Andorid RecyclerView.Adapter getAdapterPosition() 与 getLayoutPosition() 的区别">
+<meta itemprop="description" content="优先选择getLayoutPosition() getAdapterPosition() 是提供数据在刷新的时候提供一个-1的返回值，来告知视图其实正在重新绘制。这个时候点击位置与你"><meta itemprop="datePublished" content="2022-03-14T05:12:39+08:00" />
+<meta itemprop="dateModified" content="2022-03-14T05:12:39+08:00" />
+<meta itemprop="wordCount" content="1091">
+<meta itemprop="keywords" content="Android," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Andorid RecyclerView.Adapter getAdapterPosition() 与 getLayoutPosition() 的区别"/>
+<meta name="twitter:description" content="优先选择getLayoutPosition() getAdapterPosition() 是提供数据在刷新的时候提供一个-1的返回值，来告知视图其实正在重新绘制。这个时候点击位置与你"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">shindo-l</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">shindo-l</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Andorid RecyclerView.Adapter getAdapterPosition() 与 getLayoutPosition() 的区别</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2022-03-14 </span>
+        
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents"></nav>
+  </div>
+</div>
+    <div class="post-content">
+      <p>优先选择<code>getLayoutPosition()</code></p>
+<p><code>getAdapterPosition()</code> 是提供数据在刷新的时候提供一个-1的返回值，来告知视图其实正在重新绘制。这个时候点击位置与你想要的数据正在变化中是不一致的。（因为绘制View与数据位置这2组内容其实是异步的，所以Position理所当然的是不准确的）</p>
+<p><code>getLayoutPosition()</code> 更加简单暴力，你点击不会告诉你数据是否正在刷新，始终会返回一个位置值。这个位置值有可能是之前的视图item位置，也有可能是刷新视图后的item位置。</p>
+<p>应该如何取舍他们或者在什么情况下使用他们呢？</p>
+<p><code>getLayoutPosition()</code> 更适合在短时间内数据变动少，View刷新不频繁的情况下使用，或者是固定列表数据，一切简单化没这么复杂。</p>
+<p><code>getAdapterPosition()</code> <strong>更适合在频繁变动数据的情况下使用，指那种数据刷新极快而且是连续刷新的情况下使用</strong>，-1的无位置的返回值告诉你视图正在变化，你需要判断是否执行这次点击。如下代码：</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="nd">@Override</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="n">ViewHolder</span> <span class="nf">onCreateViewHolder</span><span class="o">(</span><span class="nd">@NonNull</span> <span class="n">ViewGroup</span> <span class="n">parent</span><span class="o">,</span> <span class="kt">int</span> <span class="n">viewType</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">View</span> <span class="n">view</span> <span class="o">=</span> <span class="n">LayoutInflater</span><span class="o">.</span><span class="na">from</span><span class="o">(</span><span class="n">parent</span><span class="o">.</span><span class="na">getContext</span><span class="o">()).</span><span class="na">inflate</span><span class="o">(</span><span class="n">R</span><span class="o">.</span><span class="na">layout</span><span class="o">.</span><span class="na">item_guardian_home_video</span><span class="o">,</span> <span class="n">parent</span><span class="o">,</span> <span class="kc">false</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">ViewHolder</span> <span class="n">viewHolder</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ViewHolder</span><span class="o">(</span><span class="n">view</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">view</span><span class="o">.</span><span class="na">setOnClickListener</span><span class="o">(</span><span class="k">new</span> <span class="n">View</span><span class="o">.</span><span class="na">OnClickListener</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nd">@Override</span>
+</span></span><span class="line"><span class="cl">        <span class="kd">public</span> <span class="kt">void</span> <span class="nf">onClick</span><span class="o">(</span><span class="n">View</span> <span class="n">v</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="o">(</span><span class="n">mListener</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">                <span class="n">mSelectedPosition</span> <span class="o">=</span> <span class="n">viewHolder</span><span class="o">.</span><span class="na">getAdapterPosition</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">                <span class="k">if</span> <span class="o">(</span><span class="n">mSelectedPosition</span> <span class="o">==</span> <span class="n">RecyclerView</span><span class="o">.</span><span class="na">NO_POSITION</span><span class="o">){</span>
+</span></span><span class="line"><span class="cl">                    <span class="k">return</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">                <span class="o">}</span>
+</span></span><span class="line"><span class="cl">                <span class="n">mListener</span><span class="o">.</span><span class="na">onClick</span><span class="o">(</span><span class="n">mList</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">mSelectedPosition</span><span class="o">),</span> <span class="n">mSelectedPosition</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">            <span class="o">}</span>
+</span></span><span class="line"><span class="cl">        <span class="o">}</span>
+</span></span><span class="line"><span class="cl">    <span class="o">});</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">viewHolder</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>具体技术细节可以参考《Android开发 RecyclerView.Adapter点击后的数组越界问题  与 getAdapterPosition() 与 getLayoutPosition() 的区别》文档</p>
+<p>Android开发 RecyclerView.Adapter点击后的数组越界问题 与 getAdapterPosition() 与 getLayoutPosition() 的区别 - 观心静 - 博客园
+<a href="https://www.cnblogs.com/guanxinjing/p/12192114.html">https://www.cnblogs.com/guanxinjing/p/12192114.html</a></p>
+<p><code>getLayoutPosition</code>和<code>getAdapterPosition</code>通常情况下是一样的，只有当Adapter里面的内容改变了，而Layout还没来得及绘制的这段时间之内才有可能不一样，这个时间小于16ms。</p>
+<p>如果调用的是<code>notifyDataSetChanged()</code>，因为要重新绘制所有Item，所有在绘制完成之前RecyclerView是不知道adapterPosition的，这时会返回-1。</p>
+<p>但如果用的是<code>notifyItemInserted(0)</code>，那立即就能获取到正确的adapterPosition，即使新的Layout还没绘制完成，比如之前是0的现在就会变成1，因为插入了0, 相当于RecyclerVeiw提前帮你计算的，此时<code>getLayoutPosition</code>还只能获取到旧的值。</p>
+<p>总的来说，大多数情况下用<code>getAdapterPosition</code>，只要不用<code>notifyDataSetChanged()</code>来刷新数据就总能立即获取到正确position值。</p>
+<p>什么情况下用<code>getLayoutPosition</code>呢？就是调用<code>findViewHolderForLayoutPosition</code>获取当前点击的Item的ViewHolder时，因为此时layout position和用户在屏幕上看到的一定是一样的。</p>
+
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">shindo-l</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2022-03-14
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/android/">Android</a>
+          </div>
+      <nav class="post-nav">
+        
+        <a class="next" href="/post/%E5%A6%82%E4%BD%95%E5%9C%A8-constraintlayout-%E4%B8%AD%E8%AE%BE%E7%BD%AE%E8%B4%9F%E5%80%BC%E7%9A%84-margin/">
+            <span class="next-text nav-default">Andorid 如何在 ConstraintLayout 中设置负值的 Margin</span>
+            <span class="next-text nav-mobile">下一篇</span>
+            <i class="iconfont icon-right"></i>
+          </a>
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+  <a href="http://localhost:1313/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2017 - 
+    2022<span class="heart"><i class="iconfont icon-heart"></i></span><span>shindo-l</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.min.js" integrity="sha256-jwCP0NAdCBloaIWTWHmW4i3snUNMHUNO+jr9rYd2iOI=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.locales.min.js" integrity="sha256-ZwofwC1Lf/faQCzN7nZtfijVV6hSwxjQMwXL4gn9qU8=" crossorigin="anonymous"></script>
+  <script><!-- NOTE: timeago.js uses the language code format like "zh_CN" (underscore and case sensitive) -->
+    var languageCode = "en".replace(/-/g, '_').replace(/_(.*)/, function ($0, $1) {return $0.replace($1, $1.toUpperCase());});
+    timeago().render(document.querySelectorAll('.timeago'), languageCode);
+    timeago.cancel();  
+  </script>
+
+
+
+<script type="text/javascript" src="/js/main.min.64437849d125a2d603b3e71d6de5225d641a32d17168a58106e0b61852079683.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>

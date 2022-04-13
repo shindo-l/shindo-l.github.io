@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Android 祖传DensityUtils dp转px 精度丢失的问题 - Even - A super concise theme for Hugo</title>
+  <meta name="renderer" content="webkit" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+<meta name="theme-color" content="#f8f5ec" />
+<meta name="msapplication-navbutton-color" content="#f8f5ec">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="#f8f5ec">
+
+
+<meta name="author" content="shindo-l" /><meta name="description" content="祖传DensityUtils的代码 1 2 3 4 5 6 /** * dp转px */ public static int dp2px(Context context, float dpVal) { return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dpVal, context.getResources().getDisplayMetrics()); } DensityUtils.dp2px的返回值px数" /><meta name="keywords" content="Hugo, theme, even" />
+
+
+
+
+
+
+<meta name="generator" content="Hugo 0.93.0 with theme even" />
+
+
+<link rel="canonical" href="http://localhost:1313/post/android-%E7%A5%96%E4%BC%A0densityutils-dp%E8%BD%ACpx-%E7%B2%BE%E5%BA%A6%E4%B8%A2%E5%A4%B1%E7%9A%84%E9%97%AE%E9%A2%98/" />
+<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+<link rel="manifest" href="/manifest.json">
+<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
+
+
+
+<link href="/sass/main.min.f92fd13721ddf72129410fd8250e73152cc6f2438082b6c0208dc24ee7c13fc4.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.css" integrity="sha256-7TyXnr2YU040zfSP+rEcz29ggW4j56/ujTPwjMzyqFY=" crossorigin="anonymous">
+
+
+<meta property="og:title" content="Android 祖传DensityUtils dp转px 精度丢失的问题" />
+<meta property="og:description" content="祖传DensityUtils的代码 1 2 3 4 5 6 /** * dp转px */ public static int dp2px(Context context, float dpVal) { return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dpVal, context.getResources().getDisplayMetrics()); } DensityUtils.dp2px的返回值px数" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="http://localhost:1313/post/android-%E7%A5%96%E4%BC%A0densityutils-dp%E8%BD%ACpx-%E7%B2%BE%E5%BA%A6%E4%B8%A2%E5%A4%B1%E7%9A%84%E9%97%AE%E9%A2%98/" /><meta property="article:section" content="post" />
+<meta property="article:published_time" content="2022-03-14T05:02:30+08:00" />
+<meta property="article:modified_time" content="2022-03-14T05:02:30+08:00" />
+
+<meta itemprop="name" content="Android 祖传DensityUtils dp转px 精度丢失的问题">
+<meta itemprop="description" content="祖传DensityUtils的代码 1 2 3 4 5 6 /** * dp转px */ public static int dp2px(Context context, float dpVal) { return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dpVal, context.getResources().getDisplayMetrics()); } DensityUtils.dp2px的返回值px数"><meta itemprop="datePublished" content="2022-03-14T05:02:30+08:00" />
+<meta itemprop="dateModified" content="2022-03-14T05:02:30+08:00" />
+<meta itemprop="wordCount" content="417">
+<meta itemprop="keywords" content="Android," /><meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Android 祖传DensityUtils dp转px 精度丢失的问题"/>
+<meta name="twitter:description" content="祖传DensityUtils的代码 1 2 3 4 5 6 /** * dp转px */ public static int dp2px(Context context, float dpVal) { return (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, dpVal, context.getResources().getDisplayMetrics()); } DensityUtils.dp2px的返回值px数"/>
+
+<!--[if lte IE 9]>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/classlist/1.1.20170427/classList.min.js"></script>
+<![endif]-->
+
+<!--[if lt IE 9]>
+  <script src="https://cdn.jsdelivr.net/npm/html5shiv@3.7.3/dist/html5shiv.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/respond.js@1.4.2/dest/respond.min.js"></script>
+<![endif]-->
+
+</head>
+<body>
+  <div id="mobile-navbar" class="mobile-navbar">
+  <div class="mobile-header-logo">
+    <a href="/" class="logo">shindo-l</a>
+  </div>
+  <div class="mobile-navbar-icon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</div>
+<nav id="mobile-menu" class="mobile-menu slideout-menu">
+  <ul class="mobile-menu-list">
+    <a href="/">
+        <li class="mobile-menu-item">Home</li>
+      </a><a href="/post/">
+        <li class="mobile-menu-item">Archives</li>
+      </a><a href="/tags/">
+        <li class="mobile-menu-item">Tags</li>
+      </a><a href="/categories/">
+        <li class="mobile-menu-item">Categories</li>
+      </a>
+  </ul>
+
+  
+
+
+</nav>
+
+  <div class="container" id="mobile-panel">
+    <header id="header" class="header">
+        <div class="logo-wrapper">
+  <a href="/" class="logo">shindo-l</a>
+</div>
+
+
+
+
+
+<nav class="site-navbar">
+  <ul id="menu" class="menu">
+    <li class="menu-item">
+        <a class="menu-item-link" href="/">Home</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/post/">Archives</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/tags/">Tags</a>
+      </li><li class="menu-item">
+        <a class="menu-item-link" href="/categories/">Categories</a>
+      </li>
+  </ul>
+</nav>
+
+    </header>
+
+    <main id="main" class="main">
+      <div class="content-wrapper">
+        <div id="content" class="content">
+          <article class="post">
+    
+    <header class="post-header">
+      <h1 class="post-title">Android 祖传DensityUtils dp转px 精度丢失的问题</h1>
+
+      <div class="post-meta">
+        <span class="post-time"> 2022-03-14 </span>
+        
+        
+      </div>
+    </header>
+
+    <div class="post-toc" id="post-toc">
+  <h2 class="post-toc-title">文章目录</h2>
+  <div class="post-toc-content always-active">
+    <nav id="TableOfContents"></nav>
+  </div>
+</div>
+    <div class="post-content">
+      <p>祖传DensityUtils的代码</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="cm">/**
+</span></span></span><span class="line"><span class="cl"><span class="cm"> * dp转px
+</span></span></span><span class="line"><span class="cl"><span class="cm"> */</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">static</span> <span class="kt">int</span> <span class="nf">dp2px</span><span class="o">(</span><span class="n">Context</span> <span class="n">context</span><span class="o">,</span> <span class="kt">float</span> <span class="n">dpVal</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="o">(</span><span class="kt">int</span><span class="o">)</span> <span class="n">TypedValue</span><span class="o">.</span><span class="na">applyDimension</span><span class="o">(</span><span class="n">TypedValue</span><span class="o">.</span><span class="na">COMPLEX_UNIT_DIP</span><span class="o">,</span> <span class="n">dpVal</span><span class="o">,</span> <span class="n">context</span><span class="o">.</span><span class="na">getResources</span><span class="o">().</span><span class="na">getDisplayMetrics</span><span class="o">());</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p><code>DensityUtils.dp2px</code>的返回值px数值，因为方法内部进行了<strong>float</strong>转<strong>int</strong>，会直接去掉小数，但不会四舍五入，所以进度会丢失。比如以下数据</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">DensityUtils.dp2px 1dp = 2px
+</span></span><span class="line"><span class="cl">DensityUtils.dp2px 2dp = 5px
+</span></span><span class="line"><span class="cl">DensityUtils.dp2px 3dp = 8px
+</span></span><span class="line"><span class="cl">TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP) 1dp = 2.750000px
+</span></span><span class="line"><span class="cl">TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP) 2dp = 5.500000px
+</span></span><span class="line"><span class="cl">TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP) 3dp = 8.250000px
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>可以把<code>TypedValue.applyDimension</code>的<strong>float</strong>返回值，再用<code>Math.round</code>进行<strong>float</strong>转<strong>int</strong>四舍五入</p>
+<p>测试代码</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span><span class="lnt">18
+</span><span class="lnt">19
+</span><span class="lnt">20
+</span><span class="lnt">21
+</span><span class="lnt">22
+</span><span class="lnt">23
+</span><span class="lnt">24
+</span><span class="lnt">25
+</span><span class="lnt">26
+</span><span class="lnt">27
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">DisplayMetrics</span> <span class="n">displayMetrics</span> <span class="o">=</span> <span class="n">getResources</span><span class="o">().</span><span class="na">getDisplayMetrics</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl"><span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">displayMetrics</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;displayMetrics.densityDpi:&#34;</span> <span class="o">+</span> <span class="n">displayMetrics</span><span class="o">.</span><span class="na">densityDpi</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">String</span> <span class="n">format</span> <span class="o">=</span> <span class="s">&#34;DensityUtils.dp2px %ddp = %dpx&#34;</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="kt">int</span> <span class="n">dp</span> <span class="o">=</span> <span class="n">1</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">printf</span><span class="o">(</span><span class="n">Locale</span><span class="o">.</span><span class="na">getDefault</span><span class="o">(),</span> <span class="o">(</span><span class="n">format</span><span class="o">)</span> <span class="o">+</span> <span class="s">&#34;%n&#34;</span><span class="o">,</span> <span class="n">dp</span><span class="o">,</span> <span class="n">DensityUtils</span><span class="o">.</span><span class="na">dp2px</span><span class="o">(</span><span class="n">MainActivity</span><span class="o">.</span><span class="na">this</span><span class="o">,</span> <span class="n">dp</span><span class="o">));</span>
+</span></span><span class="line"><span class="cl"><span class="n">dp</span><span class="o">++;</span>
+</span></span><span class="line"><span class="cl"><span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">printf</span><span class="o">(</span><span class="n">Locale</span><span class="o">.</span><span class="na">getDefault</span><span class="o">(),</span> <span class="o">(</span><span class="n">format</span><span class="o">)</span> <span class="o">+</span> <span class="s">&#34;%n&#34;</span><span class="o">,</span> <span class="n">dp</span><span class="o">,</span> <span class="n">DensityUtils</span><span class="o">.</span><span class="na">dp2px</span><span class="o">(</span><span class="n">MainActivity</span><span class="o">.</span><span class="na">this</span><span class="o">,</span> <span class="n">dp</span><span class="o">));</span>
+</span></span><span class="line"><span class="cl"><span class="n">dp</span><span class="o">++;</span>
+</span></span><span class="line"><span class="cl"><span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">printf</span><span class="o">(</span><span class="n">Locale</span><span class="o">.</span><span class="na">getDefault</span><span class="o">(),</span> <span class="o">(</span><span class="n">format</span><span class="o">)</span> <span class="o">+</span> <span class="s">&#34;%n&#34;</span><span class="o">,</span> <span class="n">dp</span><span class="o">,</span> <span class="n">DensityUtils</span><span class="o">.</span><span class="na">dp2px</span><span class="o">(</span><span class="n">MainActivity</span><span class="o">.</span><span class="na">this</span><span class="o">,</span> <span class="n">dp</span><span class="o">));</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">format</span> <span class="o">=</span> <span class="s">&#34;TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP) %ddp = %fpx&#34;</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="n">dp</span> <span class="o">=</span> <span class="n">1</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">printf</span><span class="o">(</span><span class="n">Locale</span><span class="o">.</span><span class="na">getDefault</span><span class="o">(),</span> <span class="o">(</span><span class="n">format</span><span class="o">)</span> <span class="o">+</span> <span class="s">&#34;%n&#34;</span><span class="o">,</span> <span class="n">dp</span><span class="o">,</span> <span class="n">TypedValue</span><span class="o">.</span><span class="na">applyDimension</span><span class="o">(</span><span class="n">TypedValue</span><span class="o">.</span><span class="na">COMPLEX_UNIT_DIP</span><span class="o">,</span> <span class="n">dp</span><span class="o">,</span> <span class="n">getResources</span><span class="o">().</span><span class="na">getDisplayMetrics</span><span class="o">()));</span>
+</span></span><span class="line"><span class="cl"><span class="n">dp</span><span class="o">++;</span>
+</span></span><span class="line"><span class="cl"><span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">printf</span><span class="o">(</span><span class="n">Locale</span><span class="o">.</span><span class="na">getDefault</span><span class="o">(),</span> <span class="o">(</span><span class="n">format</span><span class="o">)</span> <span class="o">+</span> <span class="s">&#34;%n&#34;</span><span class="o">,</span> <span class="n">dp</span><span class="o">,</span> <span class="n">TypedValue</span><span class="o">.</span><span class="na">applyDimension</span><span class="o">(</span><span class="n">TypedValue</span><span class="o">.</span><span class="na">COMPLEX_UNIT_DIP</span><span class="o">,</span> <span class="n">dp</span><span class="o">,</span> <span class="n">getResources</span><span class="o">().</span><span class="na">getDisplayMetrics</span><span class="o">()));</span>
+</span></span><span class="line"><span class="cl"><span class="n">dp</span><span class="o">++;</span>
+</span></span><span class="line"><span class="cl"><span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">printf</span><span class="o">(</span><span class="n">Locale</span><span class="o">.</span><span class="na">getDefault</span><span class="o">(),</span> <span class="o">(</span><span class="n">format</span><span class="o">)</span> <span class="o">+</span> <span class="s">&#34;%n&#34;</span><span class="o">,</span> <span class="n">dp</span><span class="o">,</span> <span class="n">TypedValue</span><span class="o">.</span><span class="na">applyDimension</span><span class="o">(</span><span class="n">TypedValue</span><span class="o">.</span><span class="na">COMPLEX_UNIT_DIP</span><span class="o">,</span> <span class="n">dp</span><span class="o">,</span> <span class="n">getResources</span><span class="o">().</span><span class="na">getDisplayMetrics</span><span class="o">()));</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="n">format</span> <span class="o">=</span> <span class="s">&#34;Math.round(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP)) %ddp = %dpx&#34;</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="n">dp</span> <span class="o">=</span> <span class="n">1</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">printf</span><span class="o">(</span><span class="n">Locale</span><span class="o">.</span><span class="na">getDefault</span><span class="o">(),</span> <span class="o">(</span><span class="n">format</span><span class="o">)</span> <span class="o">+</span> <span class="s">&#34;%n&#34;</span><span class="o">,</span> <span class="n">dp</span><span class="o">,</span> <span class="n">Math</span><span class="o">.</span><span class="na">round</span><span class="o">(</span><span class="n">TypedValue</span><span class="o">.</span><span class="na">applyDimension</span><span class="o">(</span><span class="n">TypedValue</span><span class="o">.</span><span class="na">COMPLEX_UNIT_DIP</span><span class="o">,</span> <span class="n">dp</span><span class="o">,</span> <span class="n">getResources</span><span class="o">().</span><span class="na">getDisplayMetrics</span><span class="o">())));</span>
+</span></span><span class="line"><span class="cl"><span class="n">dp</span><span class="o">++;</span>
+</span></span><span class="line"><span class="cl"><span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">printf</span><span class="o">(</span><span class="n">Locale</span><span class="o">.</span><span class="na">getDefault</span><span class="o">(),</span> <span class="o">(</span><span class="n">format</span><span class="o">)</span> <span class="o">+</span> <span class="s">&#34;%n&#34;</span><span class="o">,</span> <span class="n">dp</span><span class="o">,</span> <span class="n">Math</span><span class="o">.</span><span class="na">round</span><span class="o">(</span><span class="n">TypedValue</span><span class="o">.</span><span class="na">applyDimension</span><span class="o">(</span><span class="n">TypedValue</span><span class="o">.</span><span class="na">COMPLEX_UNIT_DIP</span><span class="o">,</span> <span class="n">dp</span><span class="o">,</span> <span class="n">getResources</span><span class="o">().</span><span class="na">getDisplayMetrics</span><span class="o">())));</span>
+</span></span><span class="line"><span class="cl"><span class="n">dp</span><span class="o">++;</span>
+</span></span><span class="line"><span class="cl"><span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">printf</span><span class="o">(</span><span class="n">Locale</span><span class="o">.</span><span class="na">getDefault</span><span class="o">(),</span> <span class="o">(</span><span class="n">format</span><span class="o">)</span> <span class="o">+</span> <span class="s">&#34;%n&#34;</span><span class="o">,</span> <span class="n">dp</span><span class="o">,</span> <span class="n">Math</span><span class="o">.</span><span class="na">round</span><span class="o">(</span><span class="n">TypedValue</span><span class="o">.</span><span class="na">applyDimension</span><span class="o">(</span><span class="n">TypedValue</span><span class="o">.</span><span class="na">COMPLEX_UNIT_DIP</span><span class="o">,</span> <span class="n">dp</span><span class="o">,</span> <span class="n">getResources</span><span class="o">().</span><span class="na">getDisplayMetrics</span><span class="o">())));</span>
+</span></span></code></pre></td></tr></table>
+</div>
+</div><p>日志输出</p>
+<div class="highlight"><div class="chroma">
+<table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">DisplayMetrics{density=2.75, width=1080, height=2296, scaledDensity=2.75, xdpi=403.411, ydpi=404.326}
+</span></span><span class="line"><span class="cl">displayMetrics.densityDpi:440
+</span></span><span class="line"><span class="cl">DensityUtils.dp2px 1dp = 2px
+</span></span><span class="line"><span class="cl">DensityUtils.dp2px 2dp = 5px
+</span></span><span class="line"><span class="cl">DensityUtils.dp2px 3dp = 8px
+</span></span><span class="line"><span class="cl">TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP) 1dp = 2.750000px
+</span></span><span class="line"><span class="cl">TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP) 2dp = 5.500000px
+</span></span><span class="line"><span class="cl">TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP) 3dp = 8.250000px
+</span></span><span class="line"><span class="cl">Math.round(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP)) 1dp = 3px
+</span></span><span class="line"><span class="cl">Math.round(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP)) 2dp = 6px
+</span></span><span class="line"><span class="cl">Math.round(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP)) 3dp = 8px
+</span></span></code></pre></td></tr></table>
+</div>
+</div>
+    </div>
+
+    <div class="post-copyright">
+  <p class="copyright-item">
+    <span class="item-title">文章作者</span>
+    <span class="item-content">shindo-l</span>
+  </p>
+  <p class="copyright-item">
+    <span class="item-title">上次更新</span>
+    <span class="item-content">
+        2022-03-14
+        
+    </span>
+  </p>
+  
+  
+</div>
+<footer class="post-footer">
+      <div class="post-tags">
+          <a href="/tags/android/">Android</a>
+          </div>
+      <nav class="post-nav">
+        <a class="prev" href="/post/%E5%A6%82%E4%BD%95%E5%9C%A8-constraintlayout-%E4%B8%AD%E8%AE%BE%E7%BD%AE%E8%B4%9F%E5%80%BC%E7%9A%84-margin/">
+            <i class="iconfont icon-left"></i>
+            <span class="prev-text nav-default">Andorid 如何在 ConstraintLayout 中设置负值的 Margin</span>
+            <span class="prev-text nav-mobile">上一篇</span>
+          </a>
+        
+      </nav>
+    </footer>
+  </article>
+        </div>
+        
+
+  
+
+  
+
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="social-links">
+  <a href="http://localhost:1313/index.xml" type="application/rss+xml" class="iconfont icon-rss" title="rss"></a>
+</div>
+
+<div class="copyright">
+  <span class="power-by">
+    由 <a class="hexo-link" href="https://gohugo.io">Hugo</a> 强力驱动
+  </span>
+  <span class="division">|</span>
+  <span class="theme-info">
+    主题 - 
+    <a class="theme-link" href="https://github.com/olOwOlo/hugo-theme-even">Even</a>
+  </span>
+
+  
+
+  <span class="copyright-year">
+    &copy; 
+    2017 - 
+    2022<span class="heart"><i class="iconfont icon-heart"></i></span><span>shindo-l</span>
+  </span>
+</div>
+
+    </footer>
+
+    <div class="back-to-top" id="back-to-top">
+      <i class="iconfont icon-up"></i>
+    </div>
+  </div>
+  
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.2.1/dist/jquery.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/slideout@1.0.1/dist/slideout.min.js" integrity="sha256-t+zJ/g8/KXIJMjSVQdnibt4dlaDxc9zXr/9oNPeWqdg=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.1.20/dist/jquery.fancybox.min.js" integrity="sha256-XVLffZaxoWfGUEbdzuLi7pwaUJv1cecsQJQqGLe7axY=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.min.js" integrity="sha256-jwCP0NAdCBloaIWTWHmW4i3snUNMHUNO+jr9rYd2iOI=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/timeago.js@3.0.2/dist/timeago.locales.min.js" integrity="sha256-ZwofwC1Lf/faQCzN7nZtfijVV6hSwxjQMwXL4gn9qU8=" crossorigin="anonymous"></script>
+  <script><!-- NOTE: timeago.js uses the language code format like "zh_CN" (underscore and case sensitive) -->
+    var languageCode = "en".replace(/-/g, '_').replace(/_(.*)/, function ($0, $1) {return $0.replace($1, $1.toUpperCase());});
+    timeago().render(document.querySelectorAll('.timeago'), languageCode);
+    timeago.cancel();  
+  </script>
+
+
+
+<script type="text/javascript" src="/js/main.min.64437849d125a2d603b3e71d6de5225d641a32d17168a58106e0b61852079683.js"></script>
+
+
+
+
+
+
+
+
+</body>
+</html>
